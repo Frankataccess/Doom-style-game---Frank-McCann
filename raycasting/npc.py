@@ -15,7 +15,7 @@ class NPC(AnimatedSprite):
         self.size = 10
         self.health = 100
         self.attack_damage = 10
-        self.accuracy = 0.15
+        self.accuracy = 0.33
         self.alive = True
         self.pain = False
         self.ray_cast_value = False
@@ -49,9 +49,17 @@ class NPC(AnimatedSprite):
             self.check_wall_collision(dx,dy)
 
     def attack(self):
-        self.animation_trigger = True
         if self.animation_trigger:
             self.game.sound.npc_shot.play()
+            if random() < self.accuracy:
+                self.game.player.get_damage(self.attack_damage)
+
+    def animate_death(self):
+        if not self.alive:
+            if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
+                self.death_images.rotate(-1)
+                self.image = self.death_images[0]
+                self.frame_counter += 1
 
     def animate_death(self):
         if not self.alive:
