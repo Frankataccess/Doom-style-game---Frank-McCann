@@ -1,7 +1,15 @@
 import math
+from screeninfo import get_monitors
+
+# Get the primary monitor
+primary_monitor = get_monitors()[0]
+
+# Get the measurments of the primary monitor
+monitor_width = primary_monitor.width
+monitor_height = primary_monitor.height
 
 #game settings 
-RES = WIDTH,HEIGHT = 1600,900
+RES = WIDTH,HEIGHT = monitor_width,monitor_height
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2 
 FPS = 0
